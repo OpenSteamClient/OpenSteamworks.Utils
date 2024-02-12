@@ -1,2 +1,2 @@
-# OpenSteamworks.Extensions
-Various helpful extensions used in the development of OpenSteamClient
+# OpenSteamworks.Utils and OpenSteamworks.Extensions
+Miscellaneous helpful utility classes and extensions used in OpenSteamClient
