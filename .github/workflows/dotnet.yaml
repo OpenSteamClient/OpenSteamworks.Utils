@@ -50,7 +50,7 @@ jobs:
         git config --global user.email "<>"
         git config --global credential.helper cache
         git clone https://${{secrets.ACCESS_TOKEN}}@github.com/OpenSteamClient/nuget
-        mkdir nuget/flatcontainer/opensteamworks.utils/${{ env.BuiltVersion }}
+        mkdir -p nuget/flatcontainer/opensteamworks.utils/${{ env.BuiltVersion }}
         cp ${{ github.workspace }}/artifacts/package/release/OpenSteamworks.Utils.${{ env.BuiltVersion }}.nupkg nuget/flatcontainer/opensteamworks.utils/${{ env.BuiltVersion }}/opensteamworks.utils.${{ env.BuiltVersion }}.nupkg -f
         cd nuget
         cd updatetool
