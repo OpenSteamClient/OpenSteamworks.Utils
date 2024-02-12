@@ -2,7 +2,7 @@ using OpenSteamworks.Utils.Enum;
 
 namespace OpenSteamworks.Utils;
 
-private static class OSSpecifics {
+internal static class OSSpecifics {
     public static (int permissions, FileTypes fileType) ParseZipExternalAttributesLinux(int externalAttributes) {
         int permissionsAndType = externalAttributes >> 16;
         int permissions = permissionsAndType & 0xFFF; // Mask to get the last 12 bits
