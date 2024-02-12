@@ -1,0 +1,53 @@
+name: .NET Build
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "**.cs"
+      - "**.csproj"
+      - "**.axaml"
+      - "**.cpp"
+      - "**.h"
+      - "**.hpp"
+      - ".github/workflows/dotnet.yaml"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Download repo and submodules
+      run: | 
+        git submodule update --init --recursive
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Build and pack release
+      run: dotnet pack -c Release
+
+    - name: Add .nupkg as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Nuget .nupkg
+        path: ${{ github.workspace }}/artifacts/package/release/OpenSteamworks.Utils.**.nupkg
+
+    - name: Upload to Github Packages
+      if: ${{ github.event_name == 'push'}}
+      run: |
+        sh -c 'dotnet nuget push ${GITHUB_WORKSPACE}/OpenSteamworks.Utils.**.nupkg --source https://nuget.pkg.github.com/OpenSteamClient/index.json --api-key ${GITHUB_TOKEN}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_WORKSPACE: ${{ github.workspace }}
+
+    
