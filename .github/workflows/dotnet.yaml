@@ -56,6 +56,7 @@ jobs:
         cd updatetool
         node index.js OpenSteamworks.Utils ${{ env.BuiltVersion }}
         cd ..
+        git add flatcontainer/opensteamworks.utils/index.json
         git add flatcontainer/opensteamworks.utils/${{ env.BuiltVersion }}/opensteamworks.utils.${{ env.BuiltVersion }}.nupkg
         git commit -m "$(date)"
         git push
