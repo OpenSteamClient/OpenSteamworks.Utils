@@ -41,11 +41,16 @@ jobs:
         name: Nuget .nupkg
         path: ${{ github.workspace }}/artifacts/package/release/OpenSteamworks.Utils.1.0.0.nupkg
 
-    - name: Upload to releases
-      if: ${{ github.event_name == 'push'}}
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: "1.0.0"
-        files: artifacts/package/release/OpenSteamworks.Utils.1.0.0.nupkg
+    - name: Upload to nuget repo
+      run: |
+        git config --global user.name "Github Actions Bot"
+        git config --global user.email "<>"
+        git config --global credential.helper cache
+        git clone https://${{secrets.ACCESS_TOKEN}}@github.com/OpenSteamClient/nuget
+        cp ${{ github.workspace }}/artifacts/package/release/OpenSteamworks.Utils.1.0.0.nupkg nuget/flatcontainer/opensteamworks.utils/1.0.0/opensteamworks.utils.1.0.0.nupkg -f
+        cd nuget
+        git add flatcontainer/opensteamworks.utils/1.0.0/opensteamworks.utils.1.0.0.nupkg
+        git commit -m "$(date)"
+        git push
 
     
