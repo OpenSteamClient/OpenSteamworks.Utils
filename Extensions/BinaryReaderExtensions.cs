@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Text;
 namespace OpenSteamworks.Extensions;
 
 public static class BinaryReaderExtensions {
-    public static T ReadStruct<T>(this BinaryReader reader) where T: unmanaged {
+    public static T ReadStruct<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>(this BinaryReader reader) where T: unmanaged {
         unsafe {
             fixed (byte* ptr = reader.ReadBytes(sizeof(T))) {
                 return Marshal.PtrToStructure<T>((nint)ptr);
@@ -15,7 +16,7 @@ public static class BinaryReaderExtensions {
         }
     }
 
-    public static object? ReadStruct(this BinaryReader reader, Type type) {
+    public static object? ReadStruct(this BinaryReader reader, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] Type type) {
         unsafe {
             fixed (byte* ptr = reader.ReadBytes(Marshal.SizeOf(type))) {
                 var structt = Marshal.PtrToStructure((nint)ptr, type);
