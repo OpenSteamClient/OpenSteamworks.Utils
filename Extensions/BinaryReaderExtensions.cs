@@ -16,15 +16,6 @@ public static class BinaryReaderExtensions {
         }
     }
 
-    public static object? ReadStruct(this BinaryReader reader, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] Type type) {
-        unsafe {
-            fixed (byte* ptr = reader.ReadBytes(Marshal.SizeOf(type))) {
-                var structt = Marshal.PtrToStructure((nint)ptr, type);
-                return structt;
-            }
-        }
-    }
-
     public static string ReadNullTerminatedWideString(this BinaryReader reader)
     {
         StringBuilder builder = new();
