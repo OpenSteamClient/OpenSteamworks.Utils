@@ -6,13 +6,15 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageId>OpenSteamworks.Utils</PackageId>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/OpenSteamClient/OpenSteamworks.Utils</RepositoryUrl>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <VersionPrefix>1.0.3</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\"/>
+    <None Include="LICENSE" Pack="true" PackagePath=""/>
   </ItemGroup>
 </Project>
